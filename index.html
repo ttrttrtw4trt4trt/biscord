@@ -18,13 +18,13 @@
       padding: 10px 15px
       border-radius: 20px;
       background-color: #007bff
-      color: white;
+      color: green;
       alighn-self: flex start;
       world-wrap: break-world;
       box-shadow: 0 2px 5px rgba(0,0,0,0.2)
     }
 
-  .message 
+  .message
     bubblebackground-color: #28a745;
     align-self: flex-end;
    }
@@ -48,10 +48,53 @@
       outline: none;
     }
     #sendButton {
+      margin-left: 10px
       padding: 10px 20px;
       font-size: 16px;
+      border: none
+      background-color: #4CAF50;
+      color: grey 
+      border-radius: 5px;
+      world-wrap: break-world;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2)
     }
-  </style>
+
+    .message-bubble.own
+      background-color: #28a745
+      align-self: felx-end;
+    }
+
+    #messageForm }
+     display: flex;     border-top: 1px soild #ccc;
+     padding: 10px
+     background:white
+    }
+
+    #messageInput {
+     flex-grow: 1;
+     padding: 10px
+     front-size: 16px
+     border: 1px soild #ccc;
+     border-radius: 5px
+     outline: none;
+    }
+
+    #sendButton {
+  margin-left: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  background-color: #4CAF50;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#sendButton:hover {
+  background-color: #45a049;
+}
+
+    </style>
 </head>
 <body>
   <div id="messages"></div>
