@@ -10,152 +10,109 @@
       height: 100vh;
       display: flex;
       flex-direction: column;
-      gap: 8px;
     }
 
-    .message-bubble { 
-      max-width: 60%; 
-      padding: 10px 15px
-      border-radius: 20px;
-      background-color: #007bff
-      color: green;
-      alighn-self: flex start;
-      world-wrap: break-world;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2)
-    }
-
-  .message
-    bubblebackground-color: #28a745;
-    align-self: flex-end;
-   }
-    
     #messages {
       flex-grow: 1;
       padding: 10px;
       border: 1px solid #ccc;
       overflow-y: auto;
       background: #f9f9f9;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
     }
+
+    .message-bubble { 
+      max-width: 60%; 
+      padding: 10px 15px;
+      border-radius: 20px;
+      background-color: #007bff;
+      color: white;
+      align-self: flex-start;
+      word-wrap: break-word;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      font-size: 16px;
+    }
+
+    .message-bubble.own {
+      background-color: #28a745;
+      align-self: flex-end;
+    }
+
     #messageForm {
       display: flex;
       border-top: 1px solid #ccc;
+      padding: 10px;
+      background: white;
     }
+
     #messageInput {
       flex-grow: 1;
       padding: 10px;
       font-size: 16px;
-      border: none;
+      border: 1px solid #ccc;
+      border-radius: 5px;
       outline: none;
     }
+
     #sendButton {
-      margin-left: 10px
+      margin-left: 10px;
       padding: 10px 20px;
       font-size: 16px;
-      border: none
+      border: none;
       background-color: #4CAF50;
-      color: grey 
+      color: white;
       border-radius: 5px;
-      world-wrap: break-world;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2)
+      cursor: pointer;
     }
 
-    .message-bubble.own
-      background-color: #28a745
-      align-self: felx-end;
+    #sendButton:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <div id="messages"></div>
+
+  <form id="messageForm">
+    <input id="messageInput" autocomplete="off" placeholder="Type a message..." />
+    <button id="sendButton" type="submit">Send</button>
+  </form>
+
+  <script>
+    const messages = document.getElementById('messages');
+    const form = document.getElementById('messageForm');
+    const input = document.getElementById('messageInput');
+
+    // For demo: assign a random ID for you as the sender
+    const userId = Math.random().toString(36).substr(2, 9);
+
+    // Function to add a message bubble
+    function addMessage(text, isOwn = false) {
+      const bubble = document.createElement('div');
+      bubble.classList.add('message-bubble');
+      if (isOwn) bubble.classList.add('own');
+      bubble.textContent = text;
+      messages.appendChild(bubble);
+      messages.scrollTop = messages.scrollHeight;  // scroll to bottom
     }
 
-    #messageForm }
-     display: flex;     border-top: 1px soild #ccc;
-     padding: 10px
-     background:white
-    }
+    // When you send a message, display it immediately
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const msg = input.value.trim();
+      if (msg === '') return;
+      addMessage(msg, true);  // your message as 'own'
+      input.value = '';
 
-    #messageInput {
-     flex-grow: 1;
-     padding: 10px
-     front-size: 16px
-     border: 1px soild #ccc;
-     border-radius: 5px
-     outline: none;
-    }
+      // Simulate an echo response after 1 second (for demo)
+      setTimeout(() => {
+        addMessage("Echo: " + msg, false);
+      }, 1000);
 
-    #sendButton {
-  margin-left: 10px;
-  padding: 10px 20px;
-  font-size: 16px;
-  border: none;
-  background-color: #4CAF50;
-  color: white;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-#sendButton:hover {
-  background-color: #45a049;
-}
-
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-#messages {
-  flex-grow: 1;
-  padding: 10px;
-  border: 1px solid #ccc;
-  overflow-y: auto;
-  background: #f9f9f9;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.message-bubble { 
-  max-width: 60%; 
-  padding: 10px 15px;
-  border-radius: 20px;
-  background-color: #007bff;
-  color: white;
-  align-self: flex-start;
-  word-wrap: break-word;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-}
-
-.message-bubble.own {
-  background-color: #28a745;
-  align-self: flex-end;
-}
-
-#messageForm {
-  display: flex;
-  border-top: 1px solid #ccc;
-  padding: 10px;
-  background: white;
-}
-
-#messageInput {
-  flex-grow: 1;
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  outline: none;
-}
-
-#sendButton {
-  margin-left: 10px;
-  padding: 10px 20px;
-  font-size: 16px;
-  border: none;
-  background-color: #4CAF50;
-  color: white;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-#sendButton:hover {
-  background-color: #45a049;
-}
+      // If you connect backend, here you would send the message
+    });
+  </script>
+</body>
+</html>
